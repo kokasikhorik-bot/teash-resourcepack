@@ -8,5 +8,5 @@ The pack contains the supplied weapon assets, teash branding, 15 pixel rank badg
 
 Credits: supplied rank artwork and weapon resources retain their original authorship; TikTok badge and teash icon prepared for this server. No exclusivity or ownership of third-party artwork is claimed.
 
-SHA-1: `c1da09b818eb9aaddb1f207c3ef9f7afa3371689`
-SHA-256: `1e259d09b10cda27300d3c41cfe17765a9e688eb34dcf30fe8dffe3317ee3d6a`
+SHA-1: `726c4281c376f7fc2213bb7d091f18aa5a2cb1da`
+SHA-256: `e36b4f958887a3b979fe31f7ac90edfa9f9e545eeed4a98373c038d4055919a3`
