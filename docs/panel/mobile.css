@@ -1,0 +1,25 @@
+:root{--accent:#c37597}.mini-auth-error{padding:32px 24px;max-width:580px;color:#e8b1ca;font-size:18px}.mini-logout{font-size:12px}body{padding-bottom:env(safe-area-inset-bottom)}.external-server{display:none!important}@media(max-width:700px){.sidebar{position:relative!important;width:100%!important;min-height:0!important;height:auto!important;display:block!important;padding:14px!important;border-right:0!important;border-bottom:1px solid #3d2a38}.brand{font-size:25px!important}.workspace,.nav-label,.sidebar-bottom{display:none!important}.sidebar nav{display:flex!important;overflow:auto;gap:5px;padding-top:12px}.sidebar nav button{flex:0 0 auto;min-width:56px;padding:9px!important;display:flex!important;gap:6px!important;font-size:12px!important}.sidebar nav button span{display:inline!important}.sidebar nav svg{width:16px!important;height:16px!important}.shell{margin-left:0!important;padding-left:0!important;width:100%!important}header{position:relative!important;padding:12px 16px!important;height:auto!important}main{padding:20px 14px!important}h1{font-size:28px!important}.private{font-size:10px!important}.breadcrumb{font-size:11px!important}footer{display:none!important}.stats-grid,.server-grid,.form-grid{grid-template-columns:1fr!important}.stat-value{font-size:26px!important}.network-actions,.detail-actions,.actions{flex-wrap:wrap!important}.table-wrap{overflow:auto}.console-input{flex-wrap:wrap}#command{min-width:140px}textarea{font-size:14px!important}.tabs{overflow:auto;white-space:nowrap}.page-heading{flex-wrap:wrap;gap:14px}.content-grid{grid-template-columns:1fr!important}.server-selector{flex-wrap:wrap}input,select,textarea{font-size:16px!important}}
+
+button.primary{background:#a14f71!important;border-color:#bb7292!important;color:#fff!important}
+
+/* Every dashboard section remains reachable on phone-sized Telegram windows. */
+body{min-height:var(--tg-viewport-stable-height,100vh);padding-top:env(safe-area-inset-top);overflow-x:hidden}
+.mini-logout{min-height:38px;touch-action:manipulation}
+@media(max-width:800px){
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .title-row{flex-wrap:wrap;align-items:flex-start!important}
+ .title-row>.actions{width:100%;flex-wrap:wrap}
+ .network-actions,.detail-actions,.actions,.server-selector,.player-action{flex-wrap:wrap!important;gap:9px}
+ .actions button,.player-action button{min-height:42px}
+ .player-action input,.player-action select{flex:1 1 140px;max-width:100%}
+ .console{max-width:100%}#logs{overflow:auto;max-height:48vh;font-size:12px}
+ #file-text{width:100%;min-height:45vh;resize:vertical}
+ .form-panel input,.form-panel select{max-width:100%}
+ dialog{max-width:calc(100vw - 28px);max-height:80vh;overflow:auto}
+ .upload-area{padding:16px!important}.table-wrap{max-width:100%;overflow:auto}
+ .server-selector select{max-width:100%;min-height:42px}
+ .tabs button{min-height:42px;white-space:nowrap}
+}
+@media(max-width:420px){.stats{grid-template-columns:1fr!important}.stat{border-right:0!important}.header-right{gap:5px!important}.breadcrumb{max-width:55vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
+.remote-login{max-width:480px;margin:7vh auto;padding:28px;border:1px solid #604353;border-radius:18px;background:#201a20}.remote-login label{display:block;margin:22px 0 8px}.remote-login input{width:100%;box-sizing:border-box}.remote-login button{margin-top:18px;min-height:44px}.remote-login [role=alert]{color:#f3a6b5}
