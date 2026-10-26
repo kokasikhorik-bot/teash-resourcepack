@@ -4,7 +4,17 @@ const icon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const menu=[['overview','grid','Обзор'],['servers','server','Серверы'],['players','users','Игроки'],['stats','chart','Статистика'],['plugins','plugin','Плагины'],['packs','pack','Ресурспаки'],['logs','console','Консоль и логи'],['settings','settings','Настройки']];
 let page='overview',selected='lobby',detail=false,tab='online',network,token,busy=false,toastTimer,loadedKey='',polling=false;
 function toast(msg,error=false){const e=$('#toast');e.textContent=msg;e.className=error?'error':'';e.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.style.display='none',6500);}
-async function api(url,data,raw){const options=data===undefined?{}:{method:'POST',headers:{'X-Teash-Token':token,'Content-Type':raw?'application/java-archive':'application/json'},body:raw?data:JSON.stringify(data)};const r=await fetch('/api'+url,options);const j=await r.json();if(!r.ok)throw Error(j.error||'Ошибка запроса');return j;}
+async function api(url,data,raw){const options=data===undefined?{}:{method:'POST',headers:{'X-Teash-Token':token,'Content-Type':raw?'application/java-archive':'application/json'},body:raw?data:JSON.stringify(data)};const r=await fetch('/api'+url,options);const j=await r.json();if(!r.ok)throw Error(j.error||'Ошибка запроса');return hydrateBrTelemetry(url,data,j);}
+// Read the existing server-owned player snapshot while older panel processes are
+// still running. This updates all UIs without restarting Minecraft or the panel.
+async function hydrateBrTelemetry(url,data,value){
+ if(data!==undefined||!['/status','/servers/battleroyale/players'].includes(url))return value;
+ const server=(url==='/status'?value:network)?.servers?.find(s=>s.id==='battleroyale');if(!server||server.status!=='online')return value;
+ try{const response=await api('/servers/battleroyale/file?name=plugins%2FTeashGuard%2Fstatus.json'),t=JSON.parse(response.text),now=Date.now();
+  if(!Number.isFinite(t.timestamp)||t.timestamp>now+5000||now-t.timestamp>30000||!Array.isArray(t.players)||t.players.some(n=>typeof n!=='string'||!/^[A-Za-z0-9_]{1,16}$/.test(n))||new Set(t.players).size!==t.players.length||!Number.isFinite(t.tps)||t.tps<0)return value;
+  if(url==='/status'){server.players=t.players;server.online=t.players.length;server.tps=Math.min(20,t.tps);}else value.online=t.players;
+ }catch{}return value;
+}
 async function ask(title,text){$('#confirm-title').textContent=title;$('#confirm-text').textContent=text;const d=$('#confirm');d.showModal();return new Promise(resolve=>d.addEventListener('close',()=>resolve(d.returnValue==='yes'),{once:true}));}
 const statusNames={offline:'Остановлен',online:'Работает',starting:'Запускается',stopping:'Останавливается'};
 const badge=s=>`<span class="badge ${s.status}">${statusNames[s.status]}</span>`;
